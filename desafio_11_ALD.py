@@ -4,10 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 #importamos de preprocessing
-from sklearn.preprocessing import StandardScaler, LabelBinarizer, LabelEncoder
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 #IMPORTAMOS DE MODEL_SELECTION
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split
 
 #importamos de METRICS
 from sklearn.metrics import classification_report
@@ -21,12 +21,12 @@ from imblearn.over_sampling import SMOTE
 df = pd.read_csv('breast_cancer.csv')
 df.head() #revisamos las primeras filas del dataset
 df.shape #vemos la forma del dataset
-df.info() #vemos la información del dataset
-df.describe() #vemos la descripción del dataset
+df.info() #vemos la informacion del dataset
+df.describe() #vemos la descripcion del dataset
 df.isnull().sum() #vemos si hay valores nulos en el dataset
 df.columns #vemos las columnas del dataset
 
-#eliminamos las columnas que no son necesarias para el análisis
+#eliminamos las columnas que no son necesarias para el analisis
 df = df.drop(columns=["id","Unnamed: 32"])
 
 #analisamos la distribucion de los datos
@@ -75,7 +75,7 @@ Z_train_oversamp, C_train_oversamp = oversampler.fit_resample(Z_train, C_train)
 print("Antes de SMOTE:")
 print(C_train.value_counts())
 
-print("\nDespués de SMOTE:")
+print("\nDespues de SMOTE:")
 print(pd.Series(C_train_oversamp).value_counts())
 
 #fialmente entrenamos el modelo de QDA con los datos balanceados
@@ -85,5 +85,5 @@ qda.fit(Z_train_oversamp, C_train_oversamp)
 #predeciomos 
 C_pred_qda = qda.predict(Z_test)
 
-#y evaluamos el desempeño del modelo
+#evaluamos el desempeño del modelo
 print(classification_report(C_test, C_pred_qda))
